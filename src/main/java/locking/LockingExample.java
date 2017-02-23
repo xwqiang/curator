@@ -25,7 +25,7 @@ import org.apache.curator.utils.CloseableUtils;
 
 public class LockingExample {
 
-    private static final int QTY = 5;
+    private static final int QTY = 50;
     private static final int REPETITIONS = QTY * 10;
 
     private static final String PATH = "/examples/locks";
