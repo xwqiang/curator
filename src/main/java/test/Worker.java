@@ -16,7 +16,7 @@ class Worker{
     }
 
     public void doWork() throws Exception {
-        if (!lock.acquire(100, TimeUnit.SECONDS)) {
+        if (!lock.acquire(100, TimeUnit.SECONDS)) {//注意用这种方式  否则要处理两种情况：直接得到/超时（超时情况下release时需要判断）
             throw new IllegalStateException( name + " could not acquire the lock");
         }
         try {
