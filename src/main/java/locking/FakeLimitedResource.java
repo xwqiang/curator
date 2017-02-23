@@ -7,7 +7,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -23,26 +23,21 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Simulates some external resource that can only be access by one process at a time
  */
-public class FakeLimitedResource
-{
-  private final AtomicBoolean     inUse = new AtomicBoolean(false);
+public class FakeLimitedResource {
 
-  public void     use() throws InterruptedException
-  {
-    // in a real application this would be accessing/manipulating a shared resource
+    private final AtomicBoolean inUse = new AtomicBoolean(false);
 
-    if ( !inUse.compareAndSet(false, true) )
-    {
-      throw new IllegalStateException("Needs to be used by one client at a time");
-    }
+    public void use() throws InterruptedException {
+        // in a real application this would be accessing/manipulating a shared resource
 
-    try
-    {
-      Thread.sleep((long)(3 * Math.random()));
+        if (!inUse.compareAndSet(false, true)) {
+            throw new IllegalStateException("Needs to be used by one client at a time");
+        }
+
+        try {
+            Thread.sleep((long) (3 * Math.random()));
+        } finally {
+            inUse.set(false);
+        }
     }
-    finally
-    {
-      inUse.set(false);
-    }
-  }
 }

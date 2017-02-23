@@ -13,23 +13,23 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
  */
 public class CuratorTest {
 
-  private static String lockPath = "/mypath/curator";
-  private static long maxWait = 10;
-  private static TimeUnit waitUnit = TimeUnit.SECONDS;
+    private static String lockPath = "/mypath/curator";
+    private static long maxWait = 10;
+    private static TimeUnit waitUnit = TimeUnit.SECONDS;
 
-  public static void main(String[] args) throws Exception {
-    RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-    CuratorFramework client = CuratorFrameworkFactory.newClient("localhost:2181", retryPolicy);
-    client.start();
-    client.blockUntilConnected();
-    client.create().creatingParentsIfNeeded().forPath(lockPath, "locked?".getBytes());
-    InterProcessMutex lock = new InterProcessMutex(client, lockPath);
-    if (lock.acquire(maxWait, waitUnit)) {
-      try {
-        // do some work inside of the critical section here
-      } finally {
-        lock.release();
-      }
+    public static void main(String[] args) throws Exception {
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
+        CuratorFramework client = CuratorFrameworkFactory.newClient("localhost:2181", retryPolicy);
+        client.start();
+        client.blockUntilConnected();
+        client.create().creatingParentsIfNeeded().forPath(lockPath, "locked".getBytes());
+        InterProcessMutex lock = new InterProcessMutex(client, lockPath);
+        if (lock.acquire(maxWait, waitUnit)) {
+            try {
+                // do some work inside of the critical section here
+            } finally {
+                lock.release();
+            }
+        }
     }
-  }
 }
