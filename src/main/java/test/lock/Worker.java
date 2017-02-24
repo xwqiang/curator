@@ -1,4 +1,4 @@
-package test;
+package test.lock;
 
 import java.util.concurrent.TimeUnit;
 import org.apache.curator.framework.CuratorFramework;

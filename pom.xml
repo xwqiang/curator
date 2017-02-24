@@ -29,6 +29,18 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
+      <!--
+      mvn -q  package exec:java
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <configuration>
+          <mainClass>test.barrier.DistributedBarrierTest</mainClass>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 

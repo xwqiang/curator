@@ -1,4 +1,4 @@
-package test;
+package test.lock;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
